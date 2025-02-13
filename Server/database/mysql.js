@@ -5,9 +5,9 @@ const genid = new GenId({WorkerId:1})
 var db = mysql.createConnection({
     host: 'localhost',
     port: '3306',
-    user: 'mysql账号',
-    password: 'mysql密码',
-    database: '数据库名'
+    user: 'root',
+    password: 'root',
+    database: 'crdb'
 })
 db.connect( (err) => {
     if (err) {

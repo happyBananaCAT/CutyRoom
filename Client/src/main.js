@@ -7,6 +7,8 @@ import {router} from "./common/router"
 import { createPinia } from 'pinia'
 import axios from 'axios'
 import { LoginStore } from './stores/LoginStores'
+import P5UI from 'p5-ui'
+import 'p5-ui/dist/style.css'
 // axios,pinia,sass,vue-router,naive-ui,wangEditor
 const app = createApp(App)
 
@@ -25,6 +27,7 @@ app.provide("server_url",axios.defaults.baseURL)
 app.use(naive)
 app.use(router)
 app.use(createPinia())
+app.use(P5UI)
 app.mount(`#app`)
 
 const loginStore = LoginStore()

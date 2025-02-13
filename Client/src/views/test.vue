@@ -1,88 +1,83 @@
 <template>
-    <div>
-      <div style="border: 1px solid #ccc;">
-        <Toolbar
-          :editor="editorRef"
-          :defaultConfig="toolbarConfig"
-          :mode="mode"
-          style="border-bottom: 1px solid #ccc"
-        />
-        <Editor
-          v-model="valueHtml"
-          :defaultConfig="editorConfig"
-          :mode="mode"
-          style="height: 500px; overflow-y: hidden;"
-          @onCreated="handleCreated"
-          @onChange="handleChange"
-        />
-      </div>
-      <button @click="saveContent">保存内容</button>
-    </div>
-  </template>
-  
-  <script setup>
-  import { ref, onMounted, onBeforeUnmount } from 'vue';
-  import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
-  import '@wangeditor/editor/dist/css/style.css';
-  
-  const editorRef = ref(null);
-  const valueHtml = ref(''); // 绑定编辑器的内容
-  const mode = ref('default');
-  const toolbarConfig = {};
-  const editorConfig = {
-    placeholder: '请输入内容...',
-    MENU_CONF: {
-      uploadImage: {
-        fieldName: 'file',
-        server: 'http://localhost:8080/upload', // 替换为你的图片上传接口
-      },
-    },
-  };
-  
-  // 页面加载时从 localStorage 读取内容
-  onMounted(() => {
-    const savedContent = localStorage.getItem('editorContent');
-    if (savedContent) {
-      valueHtml.value = savedContent;
+        <div class="item">
+            <slot>{{text  }}</slot>
+        </div>
+
+</template>
+
+<script setup>
+   import { defineProps,defineEmits } from 'vue';
+   const props = defineProps({
+    text:{
+        type:String,
+        default:"Button"
     }
-  });
-  
-  // 保存内容到 localStorage
-  const saveContent = () => {
-    localStorage.setItem('editorContent', valueHtml.value);
-    alert('内容已保存！');
-  };
-  
-  // 编辑器创建时的回调
-  const handleCreated = (editor) => {
-    editorRef.value = editor;
-  };
-  
-  // 编辑器内容变化时的回调
-  const handleChange = () => {
-    valueHtml.value = editorRef.value.getHtml();
-  };
-  
-  // 组件销毁时销毁编辑器实例
-  onBeforeUnmount(() => {
-    const editor = editorRef.value;
-    if (editor) {
-      editor.destroy();
+   })
+   const emit = defineEmits(["click"])
+   const handleClick = ()=>{
+    emit("click")
+   }
+</script>
+
+<style lang="scss" scoped>
+    .container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+     }
+
+     .item {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+
+         position: relative;
+         margin: 10px 0;
+      }
+      
+     /***2.2.新增代码***/
+    .item:hover::before{
+        content: '\00a0';
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        background-color: #1cfeff; /*蓝色*/
+        z-index: -1; /*避免遮住文字*/
+        
+        animation: bgBlue 1s ease-in infinite; /***2.3.新增代码***/
     }
-  });
-  </script>
-  
-
-
-
-
-
-<!-- import { LoginStore } from '../stores/LoginStores';
-import {ref,reactive,inject} from 'vue'
-import { useRoute,useRouter } from 'vue-router';
-const router = useRouter()
-const route  = useRoute()
-
-const message = inject("message")
-const axios = inject("axios")
-const loginStore = LoginStore() -->
+    .item:hover::after{
+        content: '\00a0';
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #ff0022; /*红色*/
+        z-index: -1; /*避免遮住文字*/
+        
+        mix-blend-mode: screen; /***2.4.新增代码***/ 
+       
+        animation: bgRed 1s ease-out infinite; /***2.3.新增代码***/ 
+    }
+    
+    /***2.3.新增代码***/
+    @keyframes bgBlue {
+        0% {top: 6%; transform: skew(-30deg, -2deg) scale(0.7);}
+        20% {top: 3%; transform: skew(45deg, 4deg) scale(0.8);}
+        40% {top: -2%; transform: skew(-20deg, -2deg) scale(0.9);}
+        60% {top: -4%; transform: skew(20deg, 2deg) scale(1);}
+        80% {top: 3%; transform: skew(-45deg, -4deg) scale(0.85);}
+        100% {top: 6%; transform: skew(45deg, 4deg) scale(0.7);}
+    }
+    
+    @keyframes bgRed {
+        0% {top: -4%; transform: skew(45deg, 4deg) scale(1);}
+        20% {top: -1%; transform: skew(-30deg, -3deg) scale(0.9);}
+        40% {top: 2%; transform: skew(60deg, 6deg) scale(0.75);}
+        60% {top: 3%; transform: skew(-20deg, -2deg) scale(0.7);}
+        80% {top: -2%; transform: skew(30deg, 3deg) scale(0.85);}
+        100% {top: -4%; transform: skew(45deg, 4deg) scale(1);}
+    }
+</style>

@@ -120,7 +120,7 @@
                 localStorage.setItem("password",LoginConfig.password)
                 localStorage.setItem("remember",LoginConfig.remember?1:0)
             }
-            login_state=='admin'? router.push("/dashboard"):router.push("/main")
+            login_state=='admin'? router.push("/dashboard"):router.push("/UserDashboard")
             message.info(login_state=='user'?`亲爱的 ${result.data.data.account},您好！`:`管理员${result.data.data.account}登录成功`)
         }else{
             message.error("登录失败,请检查您的账号和密码(区分大小写)")
