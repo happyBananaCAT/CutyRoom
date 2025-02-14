@@ -1,10 +1,10 @@
 <template>
-    <div v-if="showAnimate" class="animate">
+    <!-- <div v-if="showAnimate" class="animate">
         <p className="ciallo"style="">
             Ciallo～(∠・ω&lt; )⌒★
         </p>
-    </div>
-    <div v-else>
+    </div> -->
+    <div>
         <div class="main_panel">
         <div class="menu">
             <div v-for="(menu,index) in menus" @click = "toPage(menu)">

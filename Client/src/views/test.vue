@@ -1,83 +1,70 @@
 <template>
-        <div class="item">
-            <slot>{{text  }}</slot>
-        </div>
+    <div class="scroll-container" @click="toggleScroll">
+      <div class="scroll-content" :class="{ 'scroll-open': isOpen }">
+        <p>这是卷轴的内容</p>
+        <p>向下滚动展开</p>
+        <p>更多内容……</p>
+      </div>
 
-</template>
+    </div>
+  </template>
 
 <script setup>
-   import { defineProps,defineEmits } from 'vue';
-   const props = defineProps({
-    text:{
-        type:String,
-        default:"Button"
-    }
-   })
-   const emit = defineEmits(["click"])
-   const handleClick = ()=>{
-    emit("click")
-   }
+import { ref } from 'vue';
+
+// 定义一个响应式变量，控制卷轴的展开状态
+const isOpen = ref(false);
+
+// 定义一个方法，用于切换卷轴的展开状态
+const toggleScroll = () => {
+  isOpen.value = !isOpen.value; // 切换布尔值
+};
 </script>
 
 <style lang="scss" scoped>
-    .container {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-     }
+.scroll-container {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  overflow: hidden;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
 
-     .item {
-        display: inline-block;
-        padding: 0;
-        margin: 0;
+.scroll-content {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  background-color: #fff;
+  border: 2px solid #888;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: height 0.5s ease;
+  overflow: hidden;
+}
 
-         position: relative;
-         margin: 10px 0;
-      }
-      
-     /***2.2.新增代码***/
-    .item:hover::before{
-        content: '\00a0';
-        position: absolute;
-        width: 100%;
-        top: 0;
-        left: 0;
-        background-color: #1cfeff; /*蓝色*/
-        z-index: -1; /*避免遮住文字*/
-        
-        animation: bgBlue 1s ease-in infinite; /***2.3.新增代码***/
-    }
-    .item:hover::after{
-        content: '\00a0';
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: #ff0022; /*红色*/
-        z-index: -1; /*避免遮住文字*/
-        
-        mix-blend-mode: screen; /***2.4.新增代码***/ 
-       
-        animation: bgRed 1s ease-out infinite; /***2.3.新增代码***/ 
-    }
-    
-    /***2.3.新增代码***/
-    @keyframes bgBlue {
-        0% {top: 6%; transform: skew(-30deg, -2deg) scale(0.7);}
-        20% {top: 3%; transform: skew(45deg, 4deg) scale(0.8);}
-        40% {top: -2%; transform: skew(-20deg, -2deg) scale(0.9);}
-        60% {top: -4%; transform: skew(20deg, 2deg) scale(1);}
-        80% {top: 3%; transform: skew(-45deg, -4deg) scale(0.85);}
-        100% {top: 6%; transform: skew(45deg, 4deg) scale(0.7);}
-    }
-    
-    @keyframes bgRed {
-        0% {top: -4%; transform: skew(45deg, 4deg) scale(1);}
-        20% {top: -1%; transform: skew(-30deg, -3deg) scale(0.9);}
-        40% {top: 2%; transform: skew(60deg, 6deg) scale(0.75);}
-        60% {top: 3%; transform: skew(-20deg, -2deg) scale(0.7);}
-        80% {top: -2%; transform: skew(30deg, 3deg) scale(0.85);}
-        100% {top: -4%; transform: skew(45deg, 4deg) scale(1);}
-    }
+.scroll-content p {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.scroll-open {
+  height: 100%; /* 展开时的高度 */
+  animation: scroll-down 2s ease forwards;
+}
+
+@keyframes scroll-down {
+  0% {
+    transform: translateX(-50%) translateY(-100%);
+    height: 0;
+  }
+  100%    {
+ transform: translateX(-50%) translateY(0);
+    height: 100%;
+  }
+}
 </style>

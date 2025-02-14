@@ -9,15 +9,9 @@ UserRouter.post("/login",async(req,res)=>{
     // console.log(err,rows)
     if(err==null&&rows.length>0){
         let token = uuidv4();
-        let id = genid.NextId()
-        await db.async.all("update admin set token = ? where id =?",[token,id])
+        await db.async.all("update admin set token = ? where id =?",[token,rows[0].id])
         let user_info = rows[0]
-        user_info = {
-            account:account,
-            password:"",
-            token:token,
-            id:id
-        }
+        user_info = rows[0]
         res.send({
             code:200,
             msg:"登录成功",

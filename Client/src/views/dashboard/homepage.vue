@@ -16,8 +16,9 @@
                 <P5Button @click="dashboard">个人</P5Button>
             </div>
             <div></div>
+            <div class="line"></div>
         </div>
-        <div class="line"></div>
+        
         <div class="main_page">
             <div class="left_part"></div>
             <div class="right_part">
@@ -34,7 +35,7 @@
                 </n-space>
                 <p5-title content="萌屋文章精选" size="extra-large" font_color="#ff0000" selected_font_color="#000" selected_bg_color="#ff0000"></p5-title>
                 <div v-for="(blog, index) in BlogList" style="margin: 15px;">
-                    <n-card :title="blog.title">
+                    <n-card :title="blog.title" :style="{'width':'100%',}">
                         <div v-html="blog.content">
                         </div>
                         <template #footer>
@@ -150,7 +151,6 @@ const dashboard = () => {
 
 .main_page {
     display: flex;
-
     .left_part {
         width: 20%;
         height: 100%;
@@ -161,19 +161,17 @@ const dashboard = () => {
     margin-top: 10px
 }
 
-.line {
-    width: 100%;
-    height: 1px;
-    border-top: solid red 0.5vh;
-}
+
 
 .nav {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
     color: rgb(0, 0, 0);
     background-color: rgb(0, 0, 0);
-    z-index: -1;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    width: 100%;
 
     div {
         margin-top: 0px;
@@ -183,6 +181,13 @@ const dashboard = () => {
         font-weight: bolder;
         font-size: 50px;
     }
+    .line {
+    width: 100%;
+    height: 1px;
+    border-top: solid red 0.5vh;
+    position: absolute;
+    bottom:0;
+}
 }
 
 .footer {

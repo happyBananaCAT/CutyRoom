@@ -16,11 +16,7 @@
                     </n-card>
                 </div>
                 <n-space>
-                    <div @click="toPage(pageNumber)" v-for="pageNumber in pagination.page_count">
-                        <n-button :style="`color:` + (pageNumber == pagination.page ? 'green' : '')">
-                            {{ pageNumber }}
-                        </n-button>
-                    </div>
+                    <n-pagination v-model:page="pagination.page" :page-count="pagination.page_count" @update:page="loadBlog" />
                 </n-space>
             </n-tab-pane>
             <n-tab-pane name="add" tab="添加文章">
@@ -97,6 +93,8 @@ const addArticle = reactive({
     title: "",
     content: "",
     category_id: 0,
+    creater_id:loginStore.id,
+    creater_name:loginStore.account,
 })
 const updateArticle = reactive({
     title: "",
@@ -108,7 +106,7 @@ const pagination = reactive({
     page: 1,
     page_size: 3,
     page_count: 0,
-    blog_count: 0
+    blog_count: 0,
 })
 const add = async () => {
     console.log(addArticle)
@@ -119,7 +117,6 @@ const add = async () => {
     } else if (addArticle.category_id == 0) {
         message.error("未输入选择分类")
     } else {
-        console.log(addArticle)
         let res = await axios.post("/blog/add", addArticle)
         console.log(res)
         if (res.data.code == 200) {
@@ -138,7 +135,7 @@ const loadCategoty = async () => {
             value: item.id
         }
     })
-    console.log(categoryOptions.value)
+    // console.log(categoryOptions.value)
 }
 const loadBlog = async () => {
     let res = await axios.get(`/blog/search?page=${pagination.page}&pageSize=${pagination.page_size}`)
@@ -154,11 +151,7 @@ const loadBlog = async () => {
     BlogList.value = temp_rows
     pagination.blog_count = res.data.data.count
     pagination.page_count = Math.ceil(pagination.blog_count / pagination.page_size)
-    console.log(BlogList.value)
-}
-const toPage = async (page) => {
-    pagination.page = page
-    loadBlog()
+    // console.log(BlogList.value)
 }
 
 const toUpdate = async(blog)=>{
