@@ -97,7 +97,7 @@ router.get("/search",async(req,res)=>{
     //查询分页数据
     let search_sql = "select `id`,`category_id`,`title`,`create_time`,LEFT(`content`,100) as `content`,`creater_id`,`creater_name`  from blog "+where_sql_str+" order by create_time desc limit ? , ? "
     let searchParams = params.concat([(page - 1) * pageSize, Number(pageSize)])
-    console.log(search_sql,searchParams,params)
+    // console.log(search_sql,searchParams,params)
     //查询数据总数
     let search_count_sql = "select count(*) from blog"+where_sql_str
 

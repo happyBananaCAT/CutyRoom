@@ -3,7 +3,7 @@
         <n-tabs v-model:value="tabValue" justify-content="space-evenly" type="line">
             <n-tab-pane name="list" tab="文章列表">
                 <div v-for="(blog, index) in BlogList" style="margin: 15px;">
-                    <n-card :title="blog.title">
+                    <n-card :title="blog.title" :style="{width:'50vw'}">
                         <div v-html="blog.content">
                         </div>
                         <template #footer>

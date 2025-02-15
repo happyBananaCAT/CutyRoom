@@ -9,6 +9,7 @@
                         <template #footer>
                             <n-space align="center">
                                 <div>发布时间：{{ blog.create_time }}</div>
+                                <div @click="toWriter(blog.creater_id,blog.creater_name)" :style="{cursor:'pointer'}">作者:{{ blog.creater_name }}</div>
                                 <n-button @click="toUpdate(blog)">修改</n-button>
                                 <n-button @click="deleteBlog(blog)">删除</n-button>
                             </n-space>
@@ -101,7 +102,9 @@ const loadBlog = async () => {
     pagination.page_count = Math.ceil(pagination.blog_count / pagination.page_size)
     // console.log(BlogList.value)
 }
+const toWriter = async(creater_id,creater_name)=>{
 
+}
 const toUpdate = async(blog)=>{
     tabValue.value = "update"
     let res = await axios.get(`/blog/search_detail?id=${blog.id}`)

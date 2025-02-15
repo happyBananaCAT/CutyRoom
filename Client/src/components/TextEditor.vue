@@ -21,7 +21,7 @@ const editorConfig = { placeholder: '请输入内容...' };
 editorConfig.MENU_CONF = {}
 editorConfig.MENU_CONF['uploadImage'] = {
     base64LimitSize: 10 * 1024, // 10kb
-    server: server_url+'/upload/rich_editor_upload',
+    server: server_url+'/upload/editor_upload',
 }
 editorConfig.MENU_CONF['insertImage'] ={
     parseImageSrc:(src) =>{
