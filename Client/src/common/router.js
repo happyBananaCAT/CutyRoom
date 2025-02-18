@@ -8,7 +8,8 @@ let routes =[
     {path:"/dashboard",component:()=>import("../views/dashboard/dashboard.vue"),
         children:[
             {path:"/dashboard/category",component:()=>import("../views/dashboard/category.vue")},
-            {path:"/dashboard/article",component:()=>import("../views/dashboard/article.vue")}
+            {path:"/dashboard/article",component:()=>import("../views/dashboard/article.vue")},
+            {path:"/dashboard/AllUser",component:()=>import("../views/dashboard/AllUser.vue")}
         ]
     },
     {path:"/UserDashboard",component:()=>import("../views/UserDashboard/UserDashboard.vue"),

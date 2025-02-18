@@ -63,7 +63,8 @@ router.put("/_token/update",async(req,res)=>{
     }
 })
 
-//查所有
+//查所有文章
+//功能：分页，关键字查询，分类查询，用户id查询
 router.get("/search",async(req,res)=>{
     let {keyword,category_id,page,pageSize,creater_id} = req.query
     // 关键字查询，包括分类（category_id）和关键字(title)
@@ -146,5 +147,22 @@ router.get("/search_detail",async(req,res)=>{
         })
     }
 })
-//查个人
+//查用户信息
+router.get("/search_user",async(req,res)=>{
+    let sql = "select id,account from user"
+    let {err,rows} = await db.async.all(sql)
+    if(err==null){
+        res.send({
+            code:200,
+            msg:"查询成功",
+            rows:rows
+        })
+    }else{
+        res.send({
+            code:500,
+            msg:"查询失败"
+        })
+    }
+})
+
 module.exports = router

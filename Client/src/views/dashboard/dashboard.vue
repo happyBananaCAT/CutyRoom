@@ -27,6 +27,7 @@
     let menus= [
         {name:"文章管理",href:"/dashboard/article"},
         {name:"分类管理",href:"/dashboard/category"},
+        {name:"所有用户",href:"/dashboard/AllUser"},
         {name:"退出",href:"logout"}
         ]
 

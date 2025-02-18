@@ -76,7 +76,7 @@
                                 <n-space align="center">
                                     <div>发布时间：{{ blog.create_time }}</div>
                                     <div @click="toWriter(blog.creater_id, blog.creater_name)"
-                                        :style="{ cursor: 'pointer' }">作者:{{ blog.creater_name }}</div>
+                                        :style="{ cursor: 'pointer',color:'red' }">作者:{{ blog.creater_name }}</div>
                                 </n-space>
                             </template>
                         </n-card>
