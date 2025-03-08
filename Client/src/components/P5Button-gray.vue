@@ -33,7 +33,7 @@ emit("click")
     cursor: pointer;
      position: relative;
      margin: 10px 0;
-     
+     z-index: 1;
   }
   
  /***2.2.新增代码***/
@@ -43,24 +43,24 @@ emit("click")
     width: 100%;
     top: 0;
     left: 0;
-    background-color: #1cfeff; /*蓝色*/
+    background-color: gray; /*蓝色*/
     z-index: -1; /*避免遮住文字*/
-    
+    mix-blend-mode: overlay;
     animation: bgBlue 1s ease-in infinite; /***2.3.新增代码***/
 }
-.item:hover::after{
-    content: '\00a0';
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: #ff0022; /*红色*/
-    z-index: -1; 
+// .item:hover::after{
+//     content: '\00a0';
+//     width: 100%;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     background-color: black; /*红色*/
+//     z-index: -1; 
     
-    mix-blend-mode: screen;
+//     mix-blend-mode: screen;
    
-    animation: bgRed 1s ease-out infinite;
-}
+//     animation: bgRed 1s ease-out infinite;
+// }
 
 /***2.3.新增代码***/
 @keyframes bgBlue {

@@ -48,6 +48,7 @@ app.use("/user",require("./router/UserRouter"))
 app.use("/category",require("./router/CategoryRouter"))
 app.use("/blog",require("./router/BlogRouter"))
 app.use("/upload",require("./router/UploadRounter"))
+app.use("/form",require("./router/FormRouter"))
 
 app.listen(port,()=>{
     console.log(`http://localhost:${port}/`)

@@ -30,7 +30,7 @@
                     </n-form-item>
 
                     <n-form-item label="内容">
-                        <TextEditor v-model="updateArticle.content" />
+                        <TextEditor v-model="updateArticle.content" @onChange="console.log(updateArticle.content)"/>
                     </n-form-item>
 
                     <n-form-item label="">
@@ -60,10 +60,11 @@ const dialog = inject("dialog")
 const message = inject("message")
 const axios = inject("axios")
 const loginStore = LoginStore()
-
 const categoryOptions = ref([])
 const BlogList = ref([])
 const tabValue = ref("list")
+const autoSaveEnabled = ref(false)
+let creater_id = loginStore.id
 const updateArticle = reactive({
     title: "",
     content: "",
@@ -87,7 +88,8 @@ const loadCategoty = async () => {
     // console.log(categoryOptions.value)
 }
 const loadBlog = async () => {
-    let res = await axios.get(`/blog/search?page=${pagination.page}&pageSize=${pagination.page_size}&creater_id=${loginStore.id}`)
+    console.log(creater_id)
+    let res = await axios.get(`/blog/search?page=${pagination.page}&pageSize=${pagination.page_size}&creater_id=${creater_id}`)
     let temp_rows = res.data.data.rows
     BlogList.value = res.data.data.rows
     for (let row of temp_rows) {
@@ -102,20 +104,16 @@ const loadBlog = async () => {
     pagination.page_count = Math.ceil(pagination.blog_count / pagination.page_size)
     // console.log(BlogList.value)
 }
-const toWriter = async(creater_id,creater_name)=>{
-
-}
 const toUpdate = async(blog)=>{
     tabValue.value = "update"
     let res = await axios.get(`/blog/search_detail?id=${blog.id}`)
-    console.log(res)
     updateArticle.id = blog.id
     updateArticle.title = res.data.rows[0].title
     updateArticle.content = res.data.rows[0].content
     updateArticle.category_id  = res.data.rows[0].category_id
 }
 const update=async()=>{
-    let res = await axios.put("/blog/_token/update",updateArticle)
+    let res = await axios.put("/blog/UserUpdate",updateArticle)
     if(res.data.code==200){
         message.info(res.data.msg)
     }else
@@ -133,7 +131,7 @@ const deleteBlog = async(blog)=>{
         negativeText: '取消',
         draggable: true,
         onPositiveClick: async () => {
-            let res = await axios.delete(`/blog/_token/delete?id=${blog.id}`)
+            let res = await axios.delete(`/blog/UserDelete?id=${blog.id}`)
             if (res.data.code == 200) {
                 message.info(res.data.msg)
                 loadBlog()
@@ -147,10 +145,16 @@ const deleteBlog = async(blog)=>{
     })
     
 }
+
 onMounted(() => {
+    console.log(localStorage)
+    creater_id = localStorage.id
     loadCategoty()
     loadBlog()
 })
 </script>
-
+<style>
+img{
+    max-width: 100%;
+}</style>
 <style lang="scss" scoped></style>

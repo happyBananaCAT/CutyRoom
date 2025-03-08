@@ -16,7 +16,9 @@ const { message, notification, dialog, loadingBar, modal } = createDiscreteApi(
     ['message', 'dialog', 'notification', 'loadingBar', 'modal'],
   )
 
-axios.defaults.baseURL = "http://localhost:8000"
+axios.defaults.baseURL = "http://localhost:8000/" 
+// axios.defaults.baseURL = "http://47.99.179.83/"
+
 app.provide("axios",axios)
 app.provide("message",message)
 app.provide("notification",notification)

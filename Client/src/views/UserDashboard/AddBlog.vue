@@ -11,6 +11,7 @@
 
                     <n-form-item label="内容">
                         <TextEditor v-model="addArticle.content" />
+                        <n-button @click="saveContent">保存内容</n-button>
                     </n-form-item>
 
                     <n-form-item label="">
@@ -50,12 +51,6 @@ const addArticle = reactive({
     category_id: 0,
     creater_id:loginStore.id,
     creater_name:loginStore.account,
-})
-const updateArticle = reactive({
-    title: "",
-    content: "",
-    category_id: 0,
-    id: 0,
 })
 const pagination = reactive({
     page: 1,
@@ -109,50 +104,14 @@ const loadBlog = async () => {
     pagination.page_count = Math.ceil(pagination.blog_count / pagination.page_size)
     // console.log(BlogList.value)
 }
-
-const toUpdate = async(blog)=>{
-    tabValue.value = "update"
-    let res = await axios.get(`/blog/search_detail?id=${blog.id}`)
-    console.log(res)
-    updateArticle.id = blog.id
-    updateArticle.title = res.data.rows[0].title
-    updateArticle.content = res.data.rows[0].content
-    updateArticle.category_id  = res.data.rows[0].category_id
-}
-const update=async()=>{
-    let res = await axios.put("/blog/_token/update",updateArticle)
-    if(res.data.code==200){
-        message.info(res.data.msg)
-    }else
-    {
-        message.error(res.data.msg)
-    }
-    loadBlog()
-    tabValue.value = "list"
-}
-const deleteBlog = async(blog)=>{
-    dialog.warning({
-        title: '警告',
-        content: '确定删除该分类吗？',
-        positiveText: '确定',
-        negativeText: '取消',
-        draggable: true,
-        onPositiveClick: async () => {
-            let res = await axios.delete(`/blog/_token/delete?id=${blog.id}`)
-            if (res.data.code == 200) {
-                message.info(res.data.msg)
-                loadBlog()
-            } else {
-                message.error(res.data.msg)
-            }
-        },
-        onNegativeClick: () => {
-            return
-        }
-    })
-    
-}
+const saveContent = () => {
+    const content = addArticle.content;
+    localStorage.setItem('editorContent', content);
+};
 onMounted(() => {
+    console.log(localStorage.editorContent) 
+    let savedContent= localStorage.getItem('editorContent')
+    addArticle.content = savedContent
     loadCategoty()
     loadBlog()
 })

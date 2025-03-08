@@ -41,7 +41,22 @@ router.delete("/_token/delete",async(req,res)=>{
         })
     }
 })
-
+router.delete("/UserDelete",async(req,res)=>{
+    let id = req.query.id
+    const delete_sql = "delete from blog where id = ?"
+    let {err,rows} = await db.async.all(delete_sql,[id])
+    if(err==null){
+        res.send({
+            code:200,
+            msg:"删除博客成功",
+        })
+    }else{
+        res.send({
+            code:500,
+            msg:"删除博客失败"
+        })
+    }
+})
 
 //改
 router.put("/_token/update",async(req,res)=>{
@@ -62,7 +77,24 @@ router.put("/_token/update",async(req,res)=>{
         })
     }
 })
-
+router.put("/UserUpdate",async(req,res)=>{
+    let {id,title,content,category_id} = req.body
+    let create_time = new Date().getTime()
+    const update_sql = "update blog set title = ?,content = ?,category_id = ? where id = ?"
+    let {err,rows} = await db.async.all(update_sql,[title,content,category_id,id])
+    if(err==null){
+        res.send({
+            code:200,
+            msg:"修改博客成功",
+        })
+    }else{
+        res.send({
+            code:500,
+            msg:"修改博客失败",
+            err:err
+        })
+    }
+})
 //查所有文章
 //功能：分页，关键字查询，分类查询，用户id查询
 router.get("/search",async(req,res)=>{
@@ -84,7 +116,8 @@ router.get("/search",async(req,res)=>{
         params.push(category_id)
     }
     if(keyword!=""){
-        where_sql.push("( title like ? or content like ? )")
+        where_sql.push("( title like ? or content like ? or creater_name like ?)")
+        params.push("%"+keyword+"%")
         params.push("%"+keyword+"%")
         params.push("%"+keyword+"%")
     }
@@ -98,13 +131,13 @@ router.get("/search",async(req,res)=>{
     //查询分页数据
     let search_sql = "select `id`,`category_id`,`title`,`create_time`,LEFT(`content`,100) as `content`,`creater_id`,`creater_name`  from blog "+where_sql_str+" order by create_time desc limit ? , ? "
     let searchParams = params.concat([(page - 1) * pageSize, Number(pageSize)])
-    // console.log(search_sql,searchParams,params)
+    
     //查询数据总数
     let search_count_sql = "select count(*) from blog"+where_sql_str
 
     let searchResult = await db.async.all(search_sql,searchParams)
     let countResult = await db.async.all(search_count_sql,params)
-
+    // console.log(search_sql)
     if(searchResult.err == null&&countResult.err==null){
         res.send({
             code:200,
