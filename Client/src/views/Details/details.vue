@@ -27,7 +27,7 @@ const loadBlog = async () => {
     BlogInfo.value = res.data.rows[0]
 }
 const back = ()=>{
-    router.push("./")
+    router.back()
 }
 onMounted(() => {
     loadBlog()

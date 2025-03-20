@@ -62,7 +62,7 @@
                 </n-tab-pane>
         </n-tabs>
     </div>
-
+   
 
 </template>
 
@@ -126,7 +126,6 @@ const toUserBlog = async (user) => {
     UserInfo.value = !UserInfo.value
     current_user_id = user.id
     loadBlog(current_user_id)
-
 }
 const loadBlog = async (creater_id) => {
     let res = await axios.get(`/blog/search?page=${pagination.page}&pageSize=${pagination.page_size}&creater_id=${creater_id}`)

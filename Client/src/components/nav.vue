@@ -37,12 +37,10 @@ const props = defineProps({
 });
 const toPage = (selectedPage)=>{
     const selectedOption = props.PageOptions.find((option) => option.value === selectedPage);
-    console.log(selectedOption)
   if (selectedOption && selectedOption.value) {
     router.push(selectedOption.value);
   }
 }
-console.log(props.PageOptions)
 </script>
 
 <style lang="scss" scoped>

@@ -165,15 +165,13 @@ const loadBlog = async (creater_id, reset_page) => {
         pagination.page = 1
         pagination.page_size = 3
     }
-    console.log(pagination.keyword, pagination.page, pagination.page_size, pagination.CategoryId, creater_id)
     let res = await axios.get(`/blog/search?keyword=${pagination.keyword}&page=${pagination.page}&pageSize=${pagination.page_size}&category_id=${pagination.CategoryId}&creater_id=${creater_id}`)
-    console.log(`/blog/search?keyword=${pagination.keyword}&page=${pagination.page}&pageSize=${pagination.page_size}&category_id=${pagination.CategoryId}&creater_id=${creater_id}`)
     let temp_rows = res.data.data.rows
     BlogList.value = res.data.data.rows
     for (let row of temp_rows) {
         let time = new Date(row.create_time)
         row.create_time = `${time.getFullYear()}.${time.getMonth() + 1}.${time.getDate()}`
-        if (row.content.length == 100) {
+        if (row.content.length >= 300) {
             row.content += "......"
         }
     }

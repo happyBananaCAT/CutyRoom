@@ -5,7 +5,6 @@
             style="border-bottom: 1px solid #ccc" />
         <Editor :defaultConfig="editorConfig" :mode="mode" v-model="valueHtml" style="height: 400px; overflow-y: hidden"
             @onCreated="handleCreated" @onChange="handleChange" />
-            <n-button @click="saveContent">保存内容</n-button>
     </div>
 </template>
 
@@ -22,8 +21,9 @@ const editorConfig = { placeholder: '请输入内容...' };
 editorConfig.MENU_CONF = {}
 editorConfig.MENU_CONF['uploadImage'] = {
     base64LimitSize: 10 * 1024, // 10kb
-    server: server_url+'/upload/editor_upload',
+    server: server_url+'upload/editor_upload',
 }
+console.log(server_url+'upload/editor_upload')
 editorConfig.MENU_CONF['insertImage'] ={
     parseImageSrc:(src) =>{
         if(src.indexOf("http") !==0){
@@ -35,7 +35,7 @@ editorConfig.MENU_CONF['insertImage'] ={
 
 const mode = ref("default")
 const valueHtml = ref("")
-const savedContent = ref("")
+
 const props = defineProps({
     modelValue: {
         type: String,
@@ -66,31 +66,11 @@ const handleCreated = (editor) => {
     editorRef.value = editor; // 记录 editor 实例，重要！
 };
 const handleChange = (editor) => {
+    if (initFinished) {
+        emit("update:model-value", valueHtml.value)
+    }
+};
 
-        if (initFinished) {
-        const content = valueHtml.value;
-        // console.log('编辑器内容已更新：', content); // 打印到控制台
-        localStorage.setItem('editorContent', content);
-        // 更新父组件的绑定值
-        emit("update:model-value", content);
-    }
-};
-const saveContent=()=>{
-    const saveContent = () => {
-    const content = valueHtml.value;
-    localStorage.setItem('editorContent', content);
-};
-}
-onMounted(() => {
-    const savedContent = localStorage.getItem('editorContent');
-    if (savedContent) {
-        valueHtml.value = savedContent; // 恢复内容
-    }
-    setTimeout(() => {
-        valueHtml.value = props.modelValue; // 确保父组件传入的内容优先
-        initFinished = true;
-    }, 200);
-});
 </script>
 
 <style lang="scss" scoped>

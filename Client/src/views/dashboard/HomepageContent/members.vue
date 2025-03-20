@@ -20,20 +20,9 @@
                             </template>
                         </n-card>
                     </n-space>
+                    
                 </div>
             </n-carousel-item>
-            <!-- <n-carousel-item style="width: 60%">
-                <img class="carousel-img"
-                    src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg">
-            </n-carousel-item>
-            <n-carousel-item style="width: 60%">
-                <img class="carousel-img"
-                    src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg">
-            </n-carousel-item>
-            <n-carousel-item style="width: 60%">
-                <img class="carousel-img"
-                    src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg">
-            </n-carousel-item> -->
         </n-carousel>
     </div>
 </template>
@@ -85,8 +74,6 @@ onMounted(() => {
       }
     });
   });
-
-  // 初始化观察所有图片
   const lazyImages = document.querySelectorAll(".lazy-image");
   lazyImages.forEach((img) => {
     observer.observe(img);

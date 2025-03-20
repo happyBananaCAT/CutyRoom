@@ -7,6 +7,8 @@
   <router-view></router-view>
 </template>
 
-<style scoped>
-
+<style>
+img {
+    max-width: 100%;
+}
 </style>

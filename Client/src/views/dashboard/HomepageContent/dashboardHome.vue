@@ -1,7 +1,12 @@
 <template>
-    <div class="container"> 
+    <div class="container">
         <Nav v-bind:-page-options="menus"></Nav>
-            <router-view></router-view>
+        <router-view></router-view>
+        <p5-divider></p5-divider>
+        <div class="footer">
+            <div>Power by ???</div>
+            <div>XCIP备????号</div>
+        </div>
     </div>
 </template>
 

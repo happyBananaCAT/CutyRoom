@@ -1,6 +1,5 @@
 <template>
     <div>
-        写文章
         <n-form>
                     <n-form-item label="标题">
                         <n-input v-model:value="addArticle.title" placeholder="请输入标题" />
@@ -11,16 +10,14 @@
 
                     <n-form-item label="内容">
                         <TextEditor v-model="addArticle.content" />
-                        <n-button @click="saveContent">保存内容</n-button>
+                        
                     </n-form-item>
+                    <n-button @click="saveContent">保存内容</n-button>
 
                     <n-form-item label="">
                         <n-space>
                             <n-button @click="add">提交</n-button>
                         </n-space>
-                    </n-form-item>
-                    <n-form-item label="html格式">
-                        {{ addArticle.content }}
                     </n-form-item>
 
 
@@ -109,7 +106,6 @@ const saveContent = () => {
     localStorage.setItem('editorContent', content);
 };
 onMounted(() => {
-    console.log(localStorage.editorContent) 
     let savedContent= localStorage.getItem('editorContent')
     addArticle.content = savedContent
     loadCategoty()

@@ -2,7 +2,13 @@
 
     <body>
         <div class="login-panel">
-            <n-card title="管理员登录" v-if="type == `AdminLogin`">
+            <n-card v-if="type == `AdminLogin`">
+                <template #header>
+                    <div class="card-header">
+                        <span>管理员登录</span>
+                        <n-button @click="router.push('/')" class="button-back">返回首页</n-button>
+                    </div>
+                </template>
                 <n-form :rules="rules" :model="LoginConfig">
                     <n-form-item path="account" label="账号">
                         <n-input v-model:value="LoginConfig.account" placeholder="请输入账号" />
@@ -20,7 +26,13 @@
                 </template>
             </n-card>
 
-            <n-card title="用户登录" v-else-if="type == `UserLogin`">
+            <n-card v-else-if="type == `UserLogin`">
+                <template #header>
+                    <div class="card-header">
+                        <span>用户登录</span>
+                        <n-button @click="router.push('/')" class="button-back">返回首页</n-button>
+                    </div>
+                </template>
                 <n-form :rules="rules" :model="LoginConfig">
                     <n-form-item path="account" label="账号">
                         <n-input v-model:value="LoginConfig.account" placeholder="请输入账号" />
@@ -39,7 +51,13 @@
                 </template>
             </n-card>
 
-            <n-card title="用户注册" v-else-if="type == `UserRegister`">
+            <n-card v-else-if="type == `UserRegister`">
+                <template #header>
+                    <div class="card-header">
+                        <span>用户注册</span>
+                        <n-button @click="router.push('/')" class="button-back">返回首页</n-button>
+                    </div>
+                </template>
                 <n-form :rules="rules" :model="LoginConfig" ref="formRef">
                     <n-form-item path="account" label="账号">
                         <n-input v-model:value="LoginConfig.account" placeholder="请输入账号" />
@@ -66,7 +84,7 @@
 
 <script setup>
 
-import { ref, reactive, inject, onMounted } from 'vue'
+import { ref, reactive, inject, onMounted, onUnmounted } from 'vue'
 import { LoginStore } from "../stores/LoginStores"
 
 import { useRouter, useRoute } from 'vue-router'
@@ -117,7 +135,7 @@ const login = async (login_state) => {
         loginStore.token = result.data.data.token
         loginStore.account = result.data.data.account
         loginStore.id = result.data.data.id
-        localStorage.setItem("id",loginStore.id)
+        localStorage.setItem("id", loginStore.id)
         loginStore.state = (login_state == 'admin' ? 'admin' : 'user')
         if (LoginConfig.remember) {
             localStorage.setItem("account", LoginConfig.account)
@@ -155,6 +173,31 @@ const register = async () => {
         }
     })
 }
+
+
+
+const handleKeydown = (event) => {
+    // 判断是否按下的是 Enter 键
+    if (event.key === 'Enter') {
+        if (type.value == 'UserLogin') {
+            login('user'); // 调用按钮点击事件
+        }else if(type.value =='AdminLogin'){
+            login('admin');
+        }else if(type.value == 'UserRegister'){
+            register()
+        }
+    }
+};
+
+// 在组件挂载时绑定全局键盘事件
+onMounted(() => {
+    window.addEventListener('keydown', handleKeydown);
+});
+
+// 在组件卸载时移除全局键盘事件
+onUnmounted(() => {
+    window.removeEventListener('keydown', handleKeydown);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -165,6 +208,16 @@ const register = async () => {
     top: 30%;
     left: 30%;
 
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .button-back {
+        margin-left: auto;
+    }
 }
 
 .container {

@@ -3,13 +3,13 @@
         <n-tabs v-model:value="tabValue" justify-content="space-evenly" type="line">
             <n-tab-pane name="list" tab="文章列表">
                 <div v-for="(blog, index) in BlogList" style="margin: 15px;">
-                    <n-card :title="blog.title">
+                    <n-card :title="blog.title" @click="router.push({ path: '/detail', query: { id: blog.id } })">
                         <div v-html="blog.content">
                         </div>
                         <template #footer>
                             <n-space align="center">
                                 <div>发布时间：{{ blog.create_time }}</div>
-                                <div @click="toWriter(blog.creater_id,blog.creater_name)" :style="{cursor:'pointer'}">作者:{{ blog.creater_name }}</div>
+                                <div :style="{cursor:'pointer'}">作者:{{ blog.creater_name }}</div>
                                 <n-button @click="toUpdate(blog)">修改</n-button>
                                 <n-button @click="deleteBlog(blog)">删除</n-button>
                             </n-space>

@@ -3,6 +3,7 @@ const {db,genid} = require("../database/mysql")
 const fs = require("fs")
 const router = express.Router()
 router.post("/editor_upload",async(req,res)=>{
+    console.log(res)
     if(!req.files){
         res.send({
             "errno": 1, // 只要不等于 0 就行

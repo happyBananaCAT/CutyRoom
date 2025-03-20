@@ -129,7 +129,7 @@ router.get("/search",async(req,res)=>{
         where_sql_str = " "+"where"+" "+where_sql.join(" and ")
     }
     //查询分页数据
-    let search_sql = "select `id`,`category_id`,`title`,`create_time`,LEFT(`content`,100) as `content`,`creater_id`,`creater_name`  from blog "+where_sql_str+" order by create_time desc limit ? , ? "
+    let search_sql = "select `id`,`category_id`,`title`,`create_time`,LEFT(`content`,500) as `content`,`creater_id`,`creater_name`  from blog "+where_sql_str+" order by create_time desc limit ? , ? "
     let searchParams = params.concat([(page - 1) * pageSize, Number(pageSize)])
     
     //查询数据总数

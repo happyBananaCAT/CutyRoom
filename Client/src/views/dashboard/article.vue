@@ -3,12 +3,13 @@
         <n-tabs v-model:value="tabValue" justify-content="space-evenly" type="line">
             <n-tab-pane name="list" tab="文章列表">
                 <div v-for="(blog, index) in BlogList" style="margin: 15px;">
-                    <n-card :title="blog.title">
+                    <n-card :title="blog.title" @click="toDetail()">
                         <div v-html="blog.content">
                         </div>
                         <template #footer>
                             <n-space align="center">
                                 <div>发布时间：{{ blog.create_time }}</div>
+                                <div @click.stop="">作者：{{ blog.creater_name }}</div>
                                 <n-button @click="toUpdate(blog)">修改</n-button>
                                 <n-button @click="deleteBlog(blog)">删除</n-button>
                             </n-space>
@@ -31,14 +32,11 @@
                     <n-form-item label="内容">
                         <TextEditor v-model="addArticle.content" />
                     </n-form-item>
-
+                    <n-button @click="saveContent">保存内容</n-button>
                     <n-form-item label="">
                         <n-space>
                             <n-button @click="add">提交</n-button>
                         </n-space>
-                    </n-form-item>
-                    <n-form-item label="html格式">
-                        {{ addArticle.content }}
                     </n-form-item>
 
 
@@ -196,10 +194,20 @@ const deleteBlog = async(blog)=>{
     })
     
 }
+const saveContent = () => {
+    const content = addArticle.content;
+    localStorage.setItem('editorContent', content);
+};
 onMounted(() => {
+    let savedContent= localStorage.getItem('editorContent')
+    addArticle.content = savedContent
     loadCategoty()
     loadBlog()
 })
+
+window.addEventListener('error', function (event) {
+    console.log('Resource failed to load:', event.target.src);
+}, true);
 </script>
 
 <style lang="scss" scoped></style>
