@@ -1,0 +1,53 @@
+{
+  "name": "1",
+  "major": "1",
+  "favorite": "1",
+  "reason": "1",
+  "moreGame": "1",
+  "skill": "1",
+  "advantages": "1",
+  "disadvantages": "1",
+  "direction": "程序",
+  "failure": "能",
+  "express": "经常在公众面前发表讲话",
+  "politics": "马上制止他们并要求不要随意讨论相关问题",
+  "genshin": "狠狠的嘲笑他并输出自己的单机天龙人观点",
+  "share": "转发或上传某些平台进行分享或供其他人取用",
+  "nickname": "1"
+}
+
+{
+  "name": "1",
+  "major": "1",
+  "favorite": "1",
+  "reason": "1",
+  "moreGame": "1",
+  "skill": "1",
+  "advantages": "1",
+  "disadvantages": "1",
+  "direction": "策划",
+  "failure": "不能",
+  "express": "经常在公众面前发表讲话",
+  "politics": "马上制止他们并要求不要随意讨论相关问题",
+  "genshin": "狠狠的嘲笑他并输出自己的单机天龙人观点",
+  "share": "您有点害羞，觉得别人不一定会喜欢",
+  "nickname": "1"
+}
+
+{
+  "name": "1",
+  "major": "1",
+  "favorite": "1",
+  "reason": "11",
+  "moreGame": "1",
+  "skill": "1",
+  "advantages": "1",
+  "disadvantages": "1",
+  "direction": "策划",
+  "failure": "不能",
+  "express": "经常在公众面前发表讲话",
+  "politics": "马上制止他们并要求不要随意讨论相关问题",
+  "genshin": "狠狠的嘲笑他并输出自己的单机天龙人观点",
+  "share": "您有点害羞，觉得别人不一定会喜欢",
+  "nickname": "1"
+}

@@ -20,7 +20,7 @@ const toolbarConfig = { excludeKeys:["uploadVideo"] };
 const editorConfig = { placeholder: '请输入内容...' };
 editorConfig.MENU_CONF = {}
 editorConfig.MENU_CONF['uploadImage'] = {
-    base64LimitSize: 10 * 1024, // 10kb
+    base64LimitSize: 10 * 1024, // 10kb以下的文件会被保存为base64格式
     server: server_url+'upload/editor_upload',
 }
 console.log(server_url+'upload/editor_upload')

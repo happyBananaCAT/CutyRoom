@@ -206,6 +206,7 @@ const loadCategoty = async () => {
 }
 const toDetail = (blog) => {
     router.push({ path: "/detail", query: { id: blog.id } })
+    pagination.page= 1
 }
 const toWriter = (creater_id, creater_name) => {
     check_other_user.value = true
@@ -222,6 +223,7 @@ const homepage = () => {
     router.push("/")
     check_other_user.value = false
     pagination.page = 1
+    loadBlog()
 }
 const Login = () => {
     router.push("/login")

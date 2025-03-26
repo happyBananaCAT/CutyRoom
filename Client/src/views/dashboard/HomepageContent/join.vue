@@ -33,8 +33,15 @@
 </template>
 
 <script setup>
+import { affixProps } from 'naive-ui';
 import { ref, reactive } from 'vue';
-
+import { inject, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router';
+const router = useRouter()
+const route = useRoute()
+const dialog = inject("dialog")
+const message = inject("message")
+const axios = inject("axios")
 const formRef = ref(null);
 const size = ref('medium');
 const formValue = reactive({
@@ -154,11 +161,27 @@ const rules = {
 };
 
 const Submit = async () => {
+
     const isValid = await formRef.value.validate(); // 调用 validate 方法
+
     if (isValid) {
-        console.log('表单提交成功:', formValue);
-    } else {
-        console.log('表单验证失败');
+        //console.log(formValue);
+        let result = await axios.post("/form/add", formValue)
+        dialog.success({
+            title: '提交成功',
+            content: '请勿反复提交',
+            positiveText: '确定',
+            draggable: true,
+            onPositiveClick: async () => {
+                message.success('欢迎您的加入！')
+            },
+        })
+        for (const key in formValue) {
+        if (formValue.hasOwnProperty(key)) {
+            formValue[key] = ''; // 将所有字段重置为空字符串
+        }
+    }
+
     }
 };
 </script>

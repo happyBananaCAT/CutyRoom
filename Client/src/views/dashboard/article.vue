@@ -204,10 +204,6 @@ onMounted(() => {
     loadCategoty()
     loadBlog()
 })
-
-window.addEventListener('error', function (event) {
-    console.log('Resource failed to load:', event.target.src);
-}, true);
 </script>
 
 <style lang="scss" scoped></style>
