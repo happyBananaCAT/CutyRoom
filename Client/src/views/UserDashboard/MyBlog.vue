@@ -2,25 +2,26 @@
     <div>
         <n-tabs v-model:value="tabValue" justify-content="space-evenly" type="line">
             <n-tab-pane name="list" tab="文章列表">
-                <div v-for="(blog, index) in BlogList" style="margin: 15px;">
-                    <n-card :title="blog.title" @click="router.push({ path: '/detail', query: { id: blog.id } })">
+                <div v-for="(blog, index) in BlogList" style="margin: 15px;" @click="toDetail(blog)">
+                    <n-card :title="blog.title" >
                         <div v-html="blog.content">
                         </div>
                         <template #footer>
                             <n-space align="center">
                                 <div>发布时间：{{ blog.create_time }}</div>
-                                <div :style="{cursor:'pointer'}">作者:{{ blog.creater_name }}</div>
-                                <n-button @click="toUpdate(blog)">修改</n-button>
-                                <n-button @click="deleteBlog(blog)">删除</n-button>
+                                <div :style="{ cursor: 'pointer' }">作者:{{ blog.creater_name }}</div>
+                                <n-button @click.stop="toUpdate(blog)">修改</n-button>
+                                <n-button @click.stop="deleteBlog(blog)">删除</n-button>
                             </n-space>
                         </template>
                     </n-card>
                 </div>
                 <n-space>
-                    <n-pagination v-model:page="pagination.page" :page-count="pagination.page_count" @update:page="loadBlog" />
+                    <n-pagination v-model:page="pagination.page" :page-count="pagination.page_count"
+                        @update:page="loadBlog" />
                 </n-space>
             </n-tab-pane>
-            <n-tab-pane name="update" tab="修改文章" >
+            <n-tab-pane name="update" tab="修改文章" disabled>
                 <n-form>
                     <n-form-item label="标题">
                         <n-input v-model:value="updateArticle.title" placeholder="请输入标题" />
@@ -30,7 +31,7 @@
                     </n-form-item>
 
                     <n-form-item label="内容">
-                        <TextEditor v-model="updateArticle.content" @onChange="console.log(updateArticle.content)"/>
+                        <TextEditor v-model="updateArticle.content" />
                     </n-form-item>
 
                     <n-form-item label="">
@@ -52,7 +53,7 @@
 import { LoginStore } from '../../stores/LoginStores';
 import { ref, reactive, inject, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router';
-import Category from '../dashboard/category.vue';
+import Category from '../AdminDashboard/category.vue';
 import TextEditor from "../../components/TextEditor.vue"
 const router = useRouter()
 const route = useRoute()
@@ -104,26 +105,25 @@ const loadBlog = async () => {
     pagination.page_count = Math.ceil(pagination.blog_count / pagination.page_size)
     // console.log(BlogList.value)
 }
-const toUpdate = async(blog)=>{
+const toUpdate = async (blog) => {
     tabValue.value = "update"
     let res = await axios.get(`/blog/search_detail?id=${blog.id}`)
     updateArticle.id = blog.id
     updateArticle.title = res.data.rows[0].title
     updateArticle.content = res.data.rows[0].content
-    updateArticle.category_id  = res.data.rows[0].category_id
+    updateArticle.category_id = res.data.rows[0].category_id
 }
-const update=async()=>{
-    let res = await axios.put("/blog/UserUpdate",updateArticle)
-    if(res.data.code==200){
+const update = async () => {
+    let res = await axios.put("/blog/UserUpdate", updateArticle)
+    if (res.data.code == 200) {
         message.info(res.data.msg)
-    }else
-    {
+    } else {
         message.error(res.data.msg)
     }
     loadBlog()
     tabValue.value = "list"
 }
-const deleteBlog = async(blog)=>{
+const deleteBlog = async (blog) => {
     dialog.warning({
         title: '警告',
         content: '确定删除该分类吗？',
@@ -143,9 +143,12 @@ const deleteBlog = async(blog)=>{
             return
         }
     })
-    
-}
 
+}
+const toDetail = (blog) => {
+    router.push({ path: "/detail", query: { id: blog.id } })
+    pagination.page= 1
+}
 onMounted(() => {
     console.log(localStorage)
     creater_id = localStorage.id
@@ -154,7 +157,8 @@ onMounted(() => {
 })
 </script>
 <style>
-img{
+img {
     max-width: 100%;
-}</style>
+}
+</style>
 <style lang="scss" scoped></style>

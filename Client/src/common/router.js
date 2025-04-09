@@ -3,25 +3,22 @@ import { createRouter,createWebHashHistory } from "vue-router";
 
 
 let routes =[
-    {path:"/",component:()=>import("../views/dashboard/homepage.vue")},
-    
-    {path:"/test",component:()=>import("../views/test.vue")},
+    {path:"/",component:()=>import("../views/HomePageContent/homepage.vue")},
     {path:"/login",component:()=>import("../views/login.vue")},
     {path:"/detail",component:()=>import("../views/Details/details.vue")},
-    {path:"/dashboardHome",component:()=>import("../views/dashboard/HomepageContent/dashboardHome.vue"),
+    {path:"/HomePageDashboard",component:()=>import("../views/HomePageContent/HomePageDashboard.vue"),
         children:[
-            {path:"/dashboardHome/join",component:()=>import("../views/dashboard/HomepageContent/join.vue")},
-            {path:"/dashboardHome/members",component:()=>import("../views/dashboard/HomepageContent/members.vue")},
-            {path:"/dashboardHome/toolbox",component:()=>import("../views/dashboard/HomepageContent/toolbox.vue")},
-            {path:"/dashboardHome/account",component:()=>import("../views/dashboard/HomepageContent/accounts.vue")},
-            {path:"/dashboardHome/artworks",component:()=>import("../views/dashboard/HomepageContent/artworks.vue")}
+            {path:"/HomePageDashboard/join",component:()=>import("../views/HomePageContent/join.vue")},
+            {path:"/HomePageDashboard/members",component:()=>import("../views/HomePageContent/members.vue")},
+            {path:"/HomePageDashboard/toolbox",component:()=>import("../views/HomePageContent/toolbox.vue")},
+            {path:"/HomePageDashboard/artworks",component:()=>import("../views/HomePageContent/artworks.vue")}
         ]
     },
-    {path:"/dashboard",component:()=>import("../views/dashboard/dashboard.vue"),
+    {path:"/dashboard",component:()=>import("../views/AdminDashboard/dashboard.vue"),
         children:[
-            {path:"/dashboard/category",component:()=>import("../views/dashboard/category.vue")},
-            {path:"/dashboard/article",component:()=>import("../views/dashboard/article.vue")},
-            {path:"/dashboard/AllUser",component:()=>import("../views/dashboard/AllUser.vue")}
+            {path:"/dashboard/category",component:()=>import("../views/AdminDashboard/category.vue")},
+            {path:"/dashboard/article",component:()=>import("../views/AdminDashboard/article.vue")},
+            {path:"/dashboard/AllUser",component:()=>import("../views/AdminDashboard/AllUser.vue")}
         ]
     },
     {path:"/UserDashboard",component:()=>import("../views/UserDashboard/UserDashboard.vue"),

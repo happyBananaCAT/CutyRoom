@@ -30,7 +30,6 @@
 import { LoginStore } from '../../stores/LoginStores';
 import { ref, reactive, inject, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router';
-import Category from '../dashboard/category.vue';
 import TextEditor from "../../components/TextEditor.vue"
 const router = useRouter()
 const route = useRoute()
@@ -102,6 +101,7 @@ const loadBlog = async () => {
     // console.log(BlogList.value)
 }
 const saveContent = () => {
+    message.success("您的内容已保存成功")
     const content = addArticle.content;
     localStorage.setItem('editorContent', content);
 };

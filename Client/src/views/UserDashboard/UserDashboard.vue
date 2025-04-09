@@ -1,9 +1,4 @@
 <template>
-    <!-- <div v-if="showAnimate" class="animate">
-        <p className="ciallo"style="">
-            Ciallo～(∠・ω&lt; )⌒★
-        </p>
-    </div> -->
     <div>
         <div class="main_panel">
         <div class="menu">
@@ -37,6 +32,7 @@
     ]
 
     const toPage=(menu)=>{
+        console.log(menu)
         if(menu.href == 'logout'){
             router.push("/login")
         }else{
