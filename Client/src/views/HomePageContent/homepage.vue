@@ -20,7 +20,7 @@
             <div class="line"></div>
         </div>
 
-        <div class="main_page" >
+        <div class="main_page">
             <div class="left_part">
                 <div class="more p5-scrollbar">
                     <p5-title content="更多内容" size="extra-large"></p5-title>
@@ -28,11 +28,10 @@
                         <P5ButtonGray @click="toPage('/HomePageDashboard/join')">加入我们</P5ButtonGray>
                         <P5ButtonGray @click="toPage('/HomePageDashboard/toolbox')">萌屋工具箱</P5ButtonGray>
                         <P5ButtonGray @click="toPage('/HomePageDashboard/members')">成员信息</P5ButtonGray>
-                        <P5ButtonGray><a href="https://github.com/happyBananaCAT/CutyRoom" 
-                        style=" color: inherit;
+                        <P5ButtonGray><a href="https://github.com/happyBananaCAT/CutyRoom" style=" color: inherit;
                                 text-decoration: none;">官网源码</a></P5ButtonGray>
                         <P5ButtonGray @click="toPage('/HomePageDashboard/artworks')">游戏作品</P5ButtonGray>
-                        
+
                     </div>
 
                 </div>
@@ -86,7 +85,7 @@
                         selected_font_color="#000" selected_bg_color="#ff0000"></p5-title>
 
                     <div v-for="(blog, index) in BlogList" style="margin: 15px;">
-                        <n-card :title="blog.title"  @click="toDetail(blog)" :style="{ 'width': '60vw', }" >
+                        <n-card :title="blog.title" @click="toDetail(blog)" :style="{ 'width': '60vw', }">
                             <div v-html="blog.content" :style="{ overflow: 'hidden' }"></div>
                             <template #footer>
                                 <n-space align="center">
@@ -199,13 +198,13 @@ const loadCategoty = async () => {
             value: item.id
         }
     })
-    let all={label:"全部",value:0}
+    let all = { label: "全部", value: 0 }
     categoryOptions.value.unshift(all)
- 
+
 }
 const toDetail = (blog) => {
     router.push({ path: "/detail", query: { id: blog.id } })
-    pagination.page= 1
+    pagination.page = 1
 }
 const toWriter = (creater_id, creater_name) => {
     check_other_user.value = true
@@ -227,7 +226,7 @@ const homepage = () => {
 const Login = () => {
     router.push("/login")
 }
-const toPage = (href)=>{
+const toPage = (href) => {
     router.push(href)
 }
 </script>
@@ -236,14 +235,12 @@ img {
     max-width: 100%;
 }
 </style>
+
 <style lang="scss" scoped>
 * {
     word-wrap: break-word;
-    /* 允许在单词内换行 */
     overflow-wrap: break-word;
-    /* 同上 */
     white-space: normal;
-    /* 默认值，允许换行 */
 }
 
 .container {
@@ -259,6 +256,7 @@ img {
 .main_page {
     display: flex;
     min-height: 100vh;
+
     .left_part {
         width: 20%;
         height: 100%;
@@ -266,7 +264,6 @@ img {
         top: 50%;
         transform: translate(0, -50%);
 
-        /* 向左上偏移自身宽高的 50% */
         .more {
             overflow: scroll;
             background-color: #cfcfcf;
@@ -274,8 +271,9 @@ img {
             height: 70%;
             max-height: 50vh;
             margin: auto;
+
             .content {
-              
+
                 font-size: large;
                 font-weight: bold;
                 z-index: 1;
@@ -299,8 +297,6 @@ img {
 .search {
     margin-top: 10px
 }
-
-
 
 .nav {
     display: flex;
@@ -334,5 +330,119 @@ img {
     text-align: center;
     line-height: 25px;
     color: #726e72;
+}
+
+@media (max-width: 767px) {
+    .container {
+        overflow-x: hidden;
+        /* 防止水平滚动 */
+    }
+
+    .main_page {
+        flex-direction: column;
+        min-height: calc(100vh - 60px);
+        /* 减去导航栏高度 */
+
+        .left_part {
+            width: 100%;
+            position: static;
+            /* 改为静态定位 */
+            transform: none;
+            margin-bottom: 20px;
+
+            .more {
+                width: 90%;
+                height: auto;
+                max-height: none;
+                overflow: visible;
+                /* 移除滚动 */
+                margin: 20px auto;
+                padding: 15px;
+
+                .content {
+                    font-size: medium;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 10px;
+                }
+            }
+        }
+
+        .right_part {
+            width: 100%;
+            padding: 0 15px; // 确保容器有内边距
+            box-sizing: border-box; // 确保内边距不影响总宽度
+            overflow: visible;
+            /* 移除滚动 */
+
+            .search {
+                margin: 10px auto;
+                width: 100%;
+
+                .n-input {
+                    width: 100% !important;
+                }
+            }
+
+            .n-card {
+                width: calc(100% - 20px) !important; // 减去左右边距
+                margin: 10px auto; // 自动居中
+                max-width: 100%; // 防止意外溢出
+            }
+        }
+    }
+
+    .nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
+        padding: 10px 5px; /* 调整内边距 */
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: rgb(0, 0, 0);
+        div {
+            font-size: 24px;
+            margin: 5px 10px;
+        }
+
+        .line {
+            width: calc(100% - 20px);
+            left: 10px;
+            right: 10px;
+        }
+    }
+}
+
+/* 中等屏幕设备 (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .main_page {
+        .left_part {
+            width: 25%;
+
+            .more {
+                .content {
+                    font-size: medium;
+                }
+            }
+        }
+
+        .right_part {
+            width: 75%;
+            padding: 0 20px;
+
+            .n-card {
+                width: 90% !important;
+            }
+        }
+    }
+
+    .nav {
+        div {
+            font-size: 36px;
+        }
+    }
 }
 </style>

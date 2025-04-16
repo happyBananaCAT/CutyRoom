@@ -1,7 +1,12 @@
 <template>
 
-    <body>
+    <body class="login-body">
+        <decorations />
         <div class="login-panel">
+            <div class="login-logo">
+                <img src="../assets/logo.png" alt="Logo">
+                <h1>欢迎回来</h1>
+            </div>
             <n-card v-if="type == `AdminLogin`">
                 <template #header>
                     <div class="card-header">
@@ -30,8 +35,11 @@
                 <template #header>
                     <div class="card-header">
                         <span>用户登录</span>
-                        <n-button @click="router.push('/')" class="button-back">返回首页</n-button>
+                        
                     </div>
+                </template>
+                <template #header-extra>
+                    <n-button @click="router.push('/')" class="button-back">返回首页</n-button>
                 </template>
                 <n-form :rules="rules" :model="LoginConfig">
                     <n-form-item path="account" label="账号">
@@ -76,7 +84,9 @@
 
                 </template>
             </n-card>
-
+            <div class="login-footer">
+                <p>© 2023 萌屋社区 </p>
+            </div>
 
         </div>
     </body>
@@ -86,7 +96,7 @@
 
 import { ref, reactive, inject, onMounted, onUnmounted } from 'vue'
 import { LoginStore } from "../stores/LoginStores"
-
+import Decorations from '../components/Decorations.vue'
 import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
@@ -181,9 +191,9 @@ const handleKeydown = (event) => {
     if (event.key === 'Enter') {
         if (type.value == 'UserLogin') {
             login('user'); // 调用按钮点击事件
-        }else if(type.value =='AdminLogin'){
+        } else if (type.value == 'AdminLogin') {
             login('admin');
-        }else if(type.value == 'UserRegister'){
+        } else if (type.value == 'UserRegister') {
             register()
         }
     }
@@ -201,28 +211,90 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.login-panel {
-    width: 40vw;
-    height: 40vh;
-    position: fixed;
-    top: 30%;
-    left: 30%;
-
-}
-
-.card-header {
+.login-body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    position: relative;
+    overflow: hidden;
 
-    .button-back {
-        margin-left: auto;
+    .login-panel {
+        width: 40vw;
+        min-width: 400px;
+        max-width: 500px;
+        position: relative;
+        z-index: 1;
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 20px;
+
+            img {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 10px;
+            }
+
+            h1 {
+                color: #333;
+                font-size: 24px;
+                margin: 0;
+            }
+        }
+
+        .login-card {
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: none;
+
+            .card-header {
+                span {
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #333;
+                }
+            }
+
+            .container {
+                button {
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        transform: translateY(-2px);
+                    }
+                }
+            }
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 12px;
+        }
     }
 }
 
-.container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+@media (max-width: 767px) {
+    .login-body {
+        .login-panel {
+            width: 90%;
+            min-width: unset;
+
+            .login-logo {
+                img {
+                    width: 60px;
+                    height: 60px;
+                }
+
+                h1 {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
 }
 </style>

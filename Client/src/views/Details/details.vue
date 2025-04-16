@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <Decorations/>
         <n-button @click="back()">返回</n-button>
         <n-h1>{{ BlogInfo.title }}</n-h1>
         <div>
@@ -15,6 +16,7 @@ import { setBlockTracking } from 'vue';
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import { reactive, inject } from 'vue'
 import { useRouter, useRoute } from 'vue-router';
+import Decorations from '../../components/Decorations.vue';
 import ToTopButton from '../../components/ToTopButton.vue';
 const route = useRoute()
 const router = useRouter()

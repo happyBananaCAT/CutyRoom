@@ -10,7 +10,6 @@
                         textDecoration: 'none',
                         transition: 'color 0.3s ease'
                     }"
-                    :header-class="head"
                     :hoverable="true">
                         <div v-html="blog.content">
                         </div>
@@ -122,10 +121,10 @@ const add = async () => {
     } else if (addArticle.content == "") {
         message.error("未输入文章内容")
     } else if (addArticle.category_id == 0) {
-        message.error("未输入选择分类")
+        message.error("未选择分类")
     } else {
         let res = await axios.post("/blog/add", addArticle)
-        console.log(res)
+        // console.log(res)
         if (res.data.code == 200) {
             message.info(res.data.msg)
         } else {
@@ -204,16 +203,16 @@ const deleteBlog = async (blog) => {
 }
 const saveContent = () => {
     message.success("您的内容已保存成功")
-    const content = addArticle.content;
-    localStorage.setItem('editorContent', content);
+    localStorage.setItem('editorContent',addArticle.content);
+    localStorage.setItem('editorTitle',addArticle.title)
 };
 const toDetail = (blog) => {
     router.push({ path: "/detail", query: { id: blog.id } })
     pagination.page= 1
 }
 onMounted(() => {
-    let savedContent = localStorage.getItem('editorContent')
-    addArticle.content = savedContent
+    addArticle.content = localStorage.getItem('editorContent')
+    addArticle.title = localStorage.getItem('editorTitle')
     loadCategoty()
     loadBlog()
 })

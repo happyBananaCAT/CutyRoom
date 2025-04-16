@@ -6,12 +6,12 @@ let routes =[
     {path:"/",component:()=>import("../views/HomePageContent/homepage.vue")},
     {path:"/login",component:()=>import("../views/login.vue")},
     {path:"/detail",component:()=>import("../views/Details/details.vue")},
-    {path:"/HomePageDashboard",component:()=>import("../views/HomePageContent/HomePageDashboard.vue"),
+    {path:"/homepageDashboard",component:()=>import("../views/HomePageContent/homepageDashboard.vue"),
         children:[
-            {path:"/HomePageDashboard/join",component:()=>import("../views/HomePageContent/join.vue")},
-            {path:"/HomePageDashboard/members",component:()=>import("../views/HomePageContent/members.vue")},
-            {path:"/HomePageDashboard/toolbox",component:()=>import("../views/HomePageContent/toolbox.vue")},
-            {path:"/HomePageDashboard/artworks",component:()=>import("../views/HomePageContent/artworks.vue")}
+            {path:"/homepageDashboard/join",component:()=>import("../views/HomePageContent/join.vue")},
+            {path:"/homepageDashboard/members",component:()=>import("../views/HomePageContent/members.vue")},
+            {path:"/homepageDashboard/toolbox",component:()=>import("../views/HomePageContent/toolbox.vue")},
+            {path:"/homepageDashboard/artworks",component:()=>import("../views/HomePageContent/artworks.vue")}
         ]
     },
     {path:"/dashboard",component:()=>import("../views/AdminDashboard/dashboard.vue"),

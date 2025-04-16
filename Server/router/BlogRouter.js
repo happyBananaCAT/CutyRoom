@@ -8,6 +8,7 @@ router.post("/add",async(req,res)=>{
     let {title,content,category_id,creater_id,creater_name} = req.body
     let id = genid.NextId()
     let create_time = new Date().getTime()
+    // console.log(id , title , content , category_id , create_time,creater_id,creater_name)
     const insert_sql = "insert into blog (id , title , content , category_id , create_time,creater_id,creater_name) values (?,?,?,?,?,?,?)"
     let {err,rows} = await db.async.all(insert_sql,[id,title,content,category_id,create_time,creater_id,creater_name])
     if(err==null){

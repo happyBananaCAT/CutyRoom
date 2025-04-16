@@ -52,20 +52,24 @@ const toPage = (selectedPage) => {
 .nav {
     display: flex;
     justify-content: space-between;
+    align-items: center; // 添加垂直居中
     color: rgb(0, 0, 0);
     background-color: rgb(0, 0, 0);
     position: sticky;
     top: 0;
     z-index: 10;
     width: 100%;
+    padding: 0 10px; // 添加左右内边距防止内容贴边
+    box-sizing: border-box; // 确保padding包含在宽度内
 
     div {
-        margin-top: 0px;
+        margin: 0;
         cursor: pointer;
         z-index: 1;
         -webkit-text-stroke: 1px rgb(255, 255, 255);
         font-weight: bolder;
         font-size: 50px;
+        flex-shrink: 1; // 允许元素收缩
     }
 
     .line {
@@ -74,6 +78,37 @@ const toPage = (selectedPage) => {
         border-top: solid red 0.5vh;
         position: absolute;
         bottom: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav {
+        flex-wrap: wrap; // 允许换行
+        justify-content: center; // 水平居中
+        padding: 10px 5px; // 调整内边距
+        overflow-x: hidden; // 隐藏横向溢出
+        
+        div {
+            font-size: 24px;
+            margin: 5px 10px;
+            flex: 0 0 auto; // 不增长不收缩，基于内容宽度
+        }
+        
+        // 针对图片的特殊处理
+        div:first-child {
+            width: 80px;
+            height: 72px;
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        .line {
+            width: calc(100% - 20px);
+            left: 10px;
+            right: 10px;
+        }
     }
 }
 </style>
