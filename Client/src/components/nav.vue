@@ -59,7 +59,6 @@ const toPage = (selectedPage) => {
     top: 0;
     z-index: 10;
     width: 100%;
-    padding: 0 10px; // 添加左右内边距防止内容贴边
     box-sizing: border-box; // 确保padding包含在宽度内
 
     div {
@@ -83,25 +82,18 @@ const toPage = (selectedPage) => {
 
 @media (max-width: 768px) {
     .nav {
-        flex-wrap: wrap; // 允许换行
-        justify-content: center; // 水平居中
-        padding: 10px 5px; // 调整内边距
-        overflow-x: hidden; // 隐藏横向溢出
-        
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
+        padding: 10px 5px; /* 调整内边距 */
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: rgb(0, 0, 0);
         div {
             font-size: 24px;
             margin: 5px 10px;
-            flex: 0 0 auto; // 不增长不收缩，基于内容宽度
-        }
-        
-        // 针对图片的特殊处理
-        div:first-child {
-            width: 80px;
-            height: 72px;
-            img {
-                width: 100%;
-                height: auto;
-            }
         }
 
         .line {

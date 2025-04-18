@@ -54,6 +54,9 @@ const props = defineProps({
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* 确保卡片有高度 */
 }
 
 .header {
@@ -62,6 +65,7 @@ const props = defineProps({
   align-items: center;
   padding: 12px;
   border-bottom: 1px solid #eee;
+  flex-shrink: 0; /* 防止头部被压缩 */
 }
 
 .title {
@@ -78,21 +82,47 @@ const props = defineProps({
 .content {
   display: flex;
   padding: 12px;
+  flex-grow: 1; /* 内容区域填充剩余空间 */
+  min-height: 0; /* 修复 flex 容器中的滚动问题 */
 }
 
 .image-container {
   flex: 1;
   margin-right: 12px;
+  min-height: 0; /* 修复 flex 容器中的滚动问题 */
 }
 
 .image-container img {
   width: 100%;
   height: auto;
   border-radius: 4px;
+  object-fit: cover;
 }
 
 .info {
   flex: 2;
+  overflow-y: auto; /* 添加垂直滚动条 */
+  max-height: 100%; /* 限制高度以启用滚动 */
+  padding-right: 8px; /* 为滚动条留出空间 */
+}
+
+/* 自定义滚动条样式 */
+.info::-webkit-scrollbar {
+  width: 6px;
+}
+
+.info::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.info::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.info::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .pagination {
@@ -104,5 +134,6 @@ const props = defineProps({
   font-size: 14px;
   color: #333;
   font-weight: bold;
+  flex-shrink: 0; /* 防止页脚被压缩 */
 }
 </style>

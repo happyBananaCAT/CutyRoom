@@ -3,8 +3,8 @@
         <!-- <n-carousel draggable mousewheel autoplay direction="vertical" dot-type="dot" 
         dot-placement="left" style="height: 600px;width: 70%;" class="carousel"> -->
         <n-carousel effect="card" prev-slide-style="transform: translateX(-150%) translateZ(-800px);"
-            next-slide-style="transform: translateX(50%) translateZ(-800px);" style="height: 600px;width: 100%;"
-            show-dots draggable>
+            next-slide-style="transform: translateX(50%) translateZ(-800px);" style="height: 600px;width: 60%;"
+            show-dots draggable show-arrow>
             <MyCarousel :images="imageArray[0]" :text="carouselTexts[0]"  class="CarouselItem"/>
             <MyCarousel :images="imageArray[1]" :text="carouselTexts[1]"  class="CarouselItem"/>
         </n-carousel>
@@ -59,6 +59,6 @@ const carouselTexts = [
     /* 垂直居中 */
 }
 .CarouselItem{
-    width: 60%;
+    width: 100%;
 }
 </style>

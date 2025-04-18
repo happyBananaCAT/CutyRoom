@@ -12,11 +12,11 @@
                         <TextEditor v-model="addArticle.content" />
                         
                     </n-form-item>
-                    <n-button @click="saveContent">保存内容</n-button>
+                    <n-button @click="saveContent" style="--n-border: 1px solid rgb(0, 0, 0);">保存内容</n-button>
 
                     <n-form-item label="">
                         <n-space>
-                            <n-button @click="add">提交</n-button>
+                            <n-button @click="add" style="--n-border: 1px solid rgb(0, 0, 0);">提交</n-button>
                         </n-space>
                     </n-form-item>
 

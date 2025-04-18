@@ -3,7 +3,7 @@
         <n-tabs v-model:value="tabValue" justify-content="space-evenly" type="line">
             <n-tab-pane name="list" tab="文章列表">
                 <div v-for="(blog, index) in BlogList" style="margin: 15px;" @click="toDetail(blog)">
-                    <n-card :title="blog.title" >
+                    <n-card :title="blog.title">
                         <div v-html="blog.content">
                         </div>
                         <template #footer>
@@ -18,7 +18,12 @@
                 </div>
                 <n-space>
                     <n-pagination v-model:page="pagination.page" :page-count="pagination.page_count"
-                        @update:page="loadBlog" />
+                        @update:page="loadBlog" style="--n-item-border: 1px solid rgb(0,0,0);
+                        --n-item-border-hover: 1px solid #36ad6a;
+                        --n-tab-border-color: black;
+                        --n-button-border: 1px solid black;
+                        --n-button-border-hover: 1px solid #36ad6a;
+                        --n-button-icon-color-hover:#36ad6a" />
                 </n-space>
             </n-tab-pane>
             <n-tab-pane name="update" tab="修改文章" disabled>
@@ -36,12 +41,10 @@
 
                     <n-form-item label="">
                         <n-space>
-                            <n-button @click="update">提交</n-button>
+                            <n-button @click="update" style="--n-border: 1px solid rgb(0, 0, 0);">提交</n-button>
                         </n-space>
                     </n-form-item>
-                    <n-form-item label="html格式">
-                        {{ updateArticle.content }}
-                    </n-form-item>
+                    <!-- {{ updateArticle.content }}-->
                 </n-form>
             </n-tab-pane>
         </n-tabs>
@@ -147,7 +150,7 @@ const deleteBlog = async (blog) => {
 }
 const toDetail = (blog) => {
     router.push({ path: "/detail", query: { id: blog.id } })
-    pagination.page= 1
+    pagination.page = 1
 }
 onMounted(() => {
     console.log(localStorage)

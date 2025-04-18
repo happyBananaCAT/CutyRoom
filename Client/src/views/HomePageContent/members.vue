@@ -1,14 +1,13 @@
 <template>
     <div>
-        <n-carousel :space-between="30" :loop="false" slides-per-view="auto" 
-        centered-slides draggable class="carousel"
-         ref="carousel" @update:current-index="updateCarouselHeight">
+        <n-carousel :space-between="30" :loop="false" slides-per-view="auto" centered-slides draggable class="carousel"
+            ref="carousel" @update:current-index="updateCarouselHeight">
             <n-carousel-item style="width:80%" v-for="(group, index) in groups" :ref="el => setItemRef(el, index)"
                 class="carousel-item">
                 <div class="carousel-content">
                     <p5-title :content='group.id' size="extra-large" font_color="#ff0000" selected_font_color="#000"
                         selected_bg_color="#ff0000"></p5-title>
-                    <n-space item-style="width: 30%; padding: 10px" wrap>
+                    <n-space :item-style="spaceItemStyle" wrap class="responsive-space">
                         <n-card v-for="(member) in group.members" :title="member.name">
                             <template #header-extra>
                                 {{ group.id }}
@@ -43,6 +42,17 @@ const setItemRef = (el, index) => {
         carouselItemRefs.value[index] = el.$el
     }
 }
+const spaceItemStyle = ref({
+    width: '30%',
+    padding: '10px'
+});
+const updateItemStyle = () => {
+    if (window.innerWidth <= 768) {
+        spaceItemStyle.value = { width: '100%', padding: '0', margin: "5px" };
+    } else {
+        spaceItemStyle.value = { width: '30%', padding: '10px' };
+    }
+};
 const updateCarouselHeight = (index) => {
     let key = `g${index}`
     currentActiveIndex.value = key
@@ -55,9 +65,7 @@ const updateCarouselHeight = (index) => {
         }
     })
 }
-onMounted(() => {
-    updateCarouselHeight(0) // 初始化高度
-})
+
 
 
 const groups = ref({
@@ -136,9 +144,14 @@ onMounted(() => {
         observer.observe(img);
     });
 });
-
+onMounted(() => {
+    updateCarouselHeight(0) // 初始化高度
+    updateItemStyle();
+    window.addEventListener('resize', updateItemStyle);
+})
 onUnmounted(() => {
     if (observer) observer.disconnect(); // 组件销毁时断开观察器
+    window.removeEventListener('resize', updateItemStyle);
 });
 
 </script>
@@ -179,9 +192,8 @@ img {
 
 .image-container {
     width: 100%;
-    /* 或者设置为固定宽度，例如 200px */
-    height: 300px;
-    /* 设置固定高度 */
+    aspect-ratio: 1 / 1;
+    // height: 300px;
     overflow: hidden;
     /* 防止图片超出容器 */
     display: flex;

@@ -5,7 +5,7 @@
                 backgroundImage: `url(${currentImage})`,
             }" class="carousel-image" :key="currentIndex">
                 <div class="frosted-glass">
-                    <p>{{text}}</p>
+                    <p class="p5-scrollbar">{{ text }}</p>
                 </div>
             </div>
         </transition>
@@ -24,13 +24,13 @@ const props = defineProps({
         },
     },
     text: {
-    type: String,
-    required: true,
-  },
+        type: String,
+        required: true,
+    },
 });
 
 const currentIndex = ref(0);
-const intervalTime = 3000; // 切换间隔时间（毫秒）
+const intervalTime = 2000; // 切换间隔时间（毫秒）
 let intervalId = null;
 
 const currentImage = computed(() => props.images[currentIndex.value]);
@@ -93,25 +93,56 @@ img {
 .frosted-glass {
     text-align: center;
     font-size: 18px;
-  position: absolute;
-  right: 2px; /* 与父元素最右边隔开 20px */
-  top: 50%;
-  transform: translateY(-50%); /* 垂直居中 */
-  width: 30%; /* 宽度为 30% */
-  height: 60%; /* 高度为 60% */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white; /* 文字颜色可以根据背景调整 */
-  font-weight: bold;
-  text-align: center;
-  padding: 20px;
-  box-sizing: border-box;
+    position: absolute;
+    right: 5px;
+    /* 与父元素最右边隔开 20px */
+    top: 50%;
+    transform: translateY(-50%);
+    /* 垂直居中 */
+    width: 30%;
+    /* 宽度为 30% */
+    height: 60%;
+    /* 高度为 60% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    /* 文字颜色可以根据背景调整 */
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
 
-  /* 毛玻璃效果 */
-  backdrop-filter: blur(10px); /* 背景模糊程度 */
-  -webkit-backdrop-filter: blur(10px); /* 兼容部分浏览器 */
-  background-color: rgba(255, 255, 255, 0.3); /* 半透明背景 */
-  border-radius: 15px; /* 添加圆角效果 */
+    /* 毛玻璃效果 */
+    backdrop-filter: blur(10px);
+    /* 背景模糊程度 */
+    -webkit-backdrop-filter: blur(10px);
+    /* 兼容部分浏览器 */
+    background-color: rgba(255, 255, 255, 0.3);
+    /* 半透明背景 */
+    border-radius: 15px;
+    /* 添加圆角效果 */
+    overflow: hidden; /* 隐藏滚动条 */
+}
+.frosted-glass p {
+  width: 100%;
+  max-height: 100%;
+  overflow-y: auto; /* 允许内容滚动 */
+  padding-right: 20px; /* 为滚动留出空间 */
+  margin: 0;
+  
+  /* 隐藏滚动条但保持滚动功能 */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+/* Webkit浏览器隐藏滚动条 */
+.frosted-glass p::-webkit-scrollbar {
+  display: none;
+}
+
+/* 添加平滑滚动动画 */
+.frosted-glass p {
+  scroll-behavior: smooth;
 }
 </style>

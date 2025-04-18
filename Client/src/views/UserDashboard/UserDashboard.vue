@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="main_panel">
+            <Decorations/>
         <div class="menu">
             <div v-for="(menu,index) in menus" @click = "toPage(menu)">
                 {{ menu.name }}
@@ -18,6 +19,7 @@
     import { LoginStore } from '../../stores/LoginStores';
     import {ref,reactive,inject,onMounted} from 'vue'
     import { useRoute,useRouter } from 'vue-router';
+    import Decorations from '../../components/Decorations.vue';
     const router = useRouter()
     const route  = useRoute()
     const loginStore = LoginStore()

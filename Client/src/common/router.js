@@ -18,7 +18,7 @@ let routes =[
         children:[
             {path:"/dashboard/category",component:()=>import("../views/AdminDashboard/category.vue")},
             {path:"/dashboard/article",component:()=>import("../views/AdminDashboard/article.vue")},
-            {path:"/dashboard/AllUser",component:()=>import("../views/AdminDashboard/AllUser.vue")}
+            {path:"/dashboard/AllUser",component:()=>import("../views/AdminDashboard/allUser.vue")}
         ]
     },
     {path:"/UserDashboard",component:()=>import("../views/UserDashboard/UserDashboard.vue"),
